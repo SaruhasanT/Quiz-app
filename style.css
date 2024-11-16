@@ -24,7 +24,7 @@
   font-family: "Roboto flex", sans-serif;
   display: block;
   font-size: 0.9rem;
-  padding: 20px 40px;
+  padding: 14px 40px;
   border-radius: 10px;
   border: 1px solid;
   cursor: pointer;
@@ -111,7 +111,7 @@
   box-shadow: 2px 2px 5px 2px #ccc;
   border-radius: 5px;
 }
-.add-btn {
+.build-btn {
   padding: 10px 40px;
   background-color: white;
   color: black;
@@ -122,9 +122,12 @@
   cursor: pointer;
   transition: all 150ms ease-in-out;
 }
-.add-btn:hover {
+.build-btn:hover {
   background-color: black;
   color: white;
+}
+.submit-btn {
+  display: none;
 }
 .submit__mcq {
   padding: 10px 40px;

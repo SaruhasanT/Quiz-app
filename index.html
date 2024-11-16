@@ -12,7 +12,7 @@
       <h1>Select which type of quiz you are going to have?</h1>
       <div>
         <div class="mcq__btn">MCQ</div>
-        <div>Q&A</div>
+        <div onclick="deleteEl(23)">Q&A</div>
       </div>
     </div>
     <div class="mcq-create">
@@ -33,47 +33,50 @@
       </form>
     </div>
     <div class="mcq__build">
-      <form>
-        <h2>Create your question here.</h2>
-        <div class="question__wrapper">
-          <input type="text" required id="question" />
-          <span><span class="question__number">1</span>.</span>
-        </div>
-        <div class="answers">
-          <div>
-            <span>1.</span>
-            <input type="text" class="ans1" />
+      <div>
+        <form>
+          <h2>Create your question here.</h2>
+          <div class="question__wrapper">
+            <input type="text" required id="question" />
+            <span><span class="question__number">1</span>.</span>
           </div>
-          <div>
-            <span>2.</span>
-            <input type="text" class="ans2" />
+          <div class="answers">
+            <div>
+              <span>1.</span>
+              <input type="text" class="ans1" />
+            </div>
+            <div>
+              <span>2.</span>
+              <input type="text" class="ans2" />
+            </div>
+            <div>
+              <span>3.</span>
+              <input type="text" class="ans3" />
+            </div>
+            <div class="ansNo4">
+              <span>4.</span>
+              <input type="text" class="ans4" />
+            </div>
+            <div class="ansNo5">
+              <span>5.</span>
+              <input type="text" class="ans5" />
+            </div>
           </div>
-          <div>
-            <span>3.</span>
-            <input type="text" class="ans3" />
+          <!-- Correct answer selection -->
+          <div class="right_ans_wrapper">
+            <label for="">Correct Answer</label>
+            <select id="right__answer" class="right__answer">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
           </div>
-          <div class="ansNo4">
-            <span>4.</span>
-            <input type="text" class="ans4" />
-          </div>
-          <div class="ansNo5">
-            <span>5.</span>
-            <input type="text" class="ans5" />
-          </div>
-        </div>
-        <!-- Correct answer selection -->
-        <div class="right_ans_wrapper">
-          <label for="">Correct Answer</label>
-          <select id="right__answer" class="right__answer">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-        </div>
-        <button id="add-btn" class="add-btn">ADD</button>
-      </form>
+          <button id="add-btn" class="add-btn build-btn">ADD</button>
+        </form>
+        <button id="submit-btn" class="build-btn submit-btn">Submit</button>
+      </div>
       <!-- <button class="submit__mcq">Submit</button> -->
       <div class="mcq__container">
         <div></div>

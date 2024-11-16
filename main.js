@@ -1,18 +1,19 @@
-const mcqCreateForm = document.querySelector(".mcq-create form");
-const mcqQuestionInput = document.querySelector(
+var mcqCreateForm = document.querySelector(".mcq-create form");
+var mcqQuestionInput = document.querySelector(
   ".mcq-create form #no__of__mcq__questions"
 );
-const mcqAnswerInput = document.querySelector(".mcq-create form .mcq__answers");
-const addBtn = document.getElementById("add-btn");
-const buildForm = document.querySelector(".mcq__build form");
-const mcqContainer = document.querySelector(".mcq__container");
-const questionNumberSpan = document.querySelector(".question__number");
-const submitMcqBtn = document.querySelector(".submit__mcq");
-const mcqButton = document.querySelector(".mcq__btn");
-const selection = document.querySelector(".selection");
-const mcqCreate = document.querySelector(".mcq-create");
-const mcqBuild = document.querySelector(".mcq__build");
-const ansInputs = document.querySelectorAll(".answers > div");
+var mcqAnswerInput = document.querySelector(".mcq-create form .mcq__answers");
+var addBtn = document.getElementById("add-btn");
+var buildForm = document.querySelector(".mcq__build form");
+var mcqContainer = document.querySelector(".mcq__container");
+var questionNumberSpan = document.querySelector(".question__number");
+var submitMcqBtn = document.querySelector(".submit__mcq");
+var mcqButton = document.querySelector(".mcq__btn");
+var selection = document.querySelector(".selection");
+var mcqCreate = document.querySelector(".mcq-create");
+var mcqBuild = document.querySelector(".mcq__build");
+var ansInputs = document.querySelectorAll(".answers > div");
+var submitBtn = document.querySelector(".submit-btn");
 let mcqs = [];
 mcqButton.addEventListener("click", () => {
   selection.style.display = "none";
@@ -23,34 +24,46 @@ let numberOfMcqAns = 0;
 function myFunction() {
   console.log("function");
 }
-const a = 23;
+var a = 23;
+var deleteEl = (a) => {
+  console.log(a);
+};
+let quesNumber = 1;
 function renderQuestions() {
   mcqContainer.innerHTML = "";
   mcqs.forEach((item, index) => {
-    const html = document.createElement("div");
+    var html = document.createElement("div");
     html.className = `question__section question${index}`;
     html.innerHTML = `
           <p class="ques"><span>${item.questionNumber}.</span>${item.question}</p>
           <ol class="ans">
           </ol>
-          <button class="delete__btn" onclick='console.log(a)'>Delete</button>
     `;
     mcqContainer.append(html);
-
-    const ansHtml = document.querySelector(
+    var questionSection = document.querySelector(
+      `.question__section.question${index}`
+    );
+    var ansHtml = document.querySelector(
       `.question__section.question${index} .ans`
     );
     item.answers.forEach((b, i) => {
-      const span = document.createElement("li");
+      var span = document.createElement("li");
       span.innerHTML = b;
       ansHtml.append(span);
     });
+    var deleteButton = document.createElement("button");
+    deleteButton.innerText = "Delete";
+    deleteButton.className = "delete__btn";
+    deleteButton.addEventListener("click", () => {
+      mcqs.splice(index, 1);
+      quesNumber--;
+      questionNumberSpan.innerText = quesNumber;
+      renderQuestions();
+    });
+    questionSection.append(deleteButton);
   });
 }
 
-function enter(a) {
-  console.log(a);
-}
 // Getting the number of questions and answers
 mcqCreateForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -64,31 +77,38 @@ mcqCreateForm.addEventListener("submit", (e) => {
     }
   });
 });
-const question = document.querySelector(".mcq__build #question");
-const answers = document.querySelectorAll(".mcq__build .answers input");
-const writeAnswer = document.querySelector(".mcq__build .right__answer");
-let quesNumber = 1;
+var question = document.querySelector(".mcq__build #question");
+var answers = document.querySelectorAll(".mcq__build .answers input");
+var writeAnswer = document.querySelector(".mcq__build .right__answer");
 buildForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  let temp = {};
-  let ansArr = [];
-  temp.questionNumber = quesNumber;
-  temp.question = question.value;
-  temp.rightAnswer = parseInt(writeAnswer.value);
-  for (let i = 0; i < numberOfMcqAns; i++) {
-    ansArr.push(answers[i].value);
+  if (quesNumber <= numberOfMcq) {
+    e.preventDefault();
+    let temp = {};
+    let ansArr = [];
+    temp.questionNumber = quesNumber;
+    temp.question = question.value;
+    temp.rightAnswer = parseInt(writeAnswer.value);
+    for (let i = 0; i < numberOfMcqAns; i++) {
+      ansArr.push(answers[i].value);
+    }
+    temp.answers = ansArr;
+    mcqs.push(temp);
+    question.value = "";
+    for (let i = 0; i < 5; i++) {
+      answers[i].value = null;
+    }
+    quesNumber++;
+    questionNumberSpan.innerText = quesNumber;
+    renderQuestions();
+  } else {
+    return "";
   }
-  temp.answers = ansArr;
-  mcqs.push(temp);
-  question.value = "";
-  for (let i = 0; i < 5; i++) {
-    answers[i].value = null;
+  if (quesNumber > numberOfMcq) {
+    addBtn.style.cursor = "not-allowed";
+    submitBtn.style.display = "block";
   }
-  quesNumber++;
-  questionNumberSpan.innerText = quesNumber;
-  renderQuestions();
 });
-const deleteButtons = document.querySelectorAll(".delete__btn");
+var deleteButtons = document.querySelectorAll(".delete__btn");
 deleteButtons.forEach((btn, index) => {
   btn.addEventListener("click", () => {
     mcqs.splice(index, 1);
